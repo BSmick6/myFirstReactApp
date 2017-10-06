@@ -4,7 +4,7 @@ function InputLine(props) {
   return (
     <div>
       <input placeholder="Task..." />
-      <button>Add todo</button>
+      <button onClick={() => props.submit("Test Task")}>Add todo</button>
     </div>
   );
 };
