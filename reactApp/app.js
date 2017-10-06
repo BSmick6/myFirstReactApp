@@ -7,44 +7,51 @@ const dummyData = [
   { taskText: "Profit", completed: false }
 ];
 
-class InputLine extends React.Component {
-  render() {
-    return (
-      <div>
-        <input placeholder="Task..." />
-        <button>Add todo</button>
-      </div>
-    )
-  }
-}
+function InputLine(props) {
+  return (
+    <div>
+      <input placeholder="Task..." />
+      <button>Add todo</button>
+    </div>
+  );
+};
 
-class Todo extends React.Component {
-  render() {
-    const t = this.props.task;
-    return (
-      <li>
-        <button>X</button>
-        {this.props.completed ? <strike>{t}</strike> : t}</li>
-    )
-  }
-}
+function Todo(props) {
+  const t = props.task;
+  return (
+    <li>
+      <button>X</button>
+      {props.completed ? <strike>{t}</strike> : t}</li>
+    );
+};
 
-class TodoList extends React.Component {
-  render() {
-    return (
-      <ul>
-        {dummyData.map((todo) => (<Todo task={todo.taskText} completed={todo.completed} />))}
-      </ul>
-    )
-  }
-}
+function TodoList(props) {
+  return (
+    <ul>
+      {props.todos.map((todo) => (<Todo task={todo.taskText} completed={todo.completed} />))}
+    </ul>
+  );
+};
 
 class TodoApp extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      todos: []
+    }
+  }
+
+  componentDidMount() {
+    this.setState({
+      todos: dummyData
+    })
+  }
+
   render() {
     return (
       <div>
         <InputLine />
-        <TodoList />
+        <TodoList todos={this.state.todos} />
       </div>
     )
   }
